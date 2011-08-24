@@ -67,3 +67,7 @@ configurations to use.  The usual values are 'production', 'staging', and 'devel
 </VirtualHost>
 
 Don't forget to restart Apache after you've added the vhost configuration.
+
+ARCHIVING
+
+	git archive --format=zip --prefix=project/ HEAD > project.zip
