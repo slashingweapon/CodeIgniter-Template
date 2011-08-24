@@ -1,0 +1,69 @@
+README
+
+This is a CodeIgniter project template which I use as a starting point for my contracting
+practice.  It is a standard CI project, with a few useful additions.
+
+* application/library/Smarty.php gives you a trivially simple way to integrate Smarty into your
+application.  See the headerdoc in that file for more information.
+
+* application/library/Fmp.php integrates the FileMaker database libraries with your project.  See
+the headerdoc in that file for more information.
+
+* public/index.php has been modified to support an ENVIRONMENT constant defined by the server.
+
+* public/index.php includes FileMaker.php
+
+REQUIREMENTS
+
+CodeIgniter 2.x:  You will need to put your CodeIgniter_2.0.2 folder into this this one, and call it
+"CodeIgniter".
+
+Smarty 3.x: The Smarty folder has to be somewhere in your PHP include path.
+
+FileMaker PHP libraries need to be in your PHP include path.
+
+FILE PERMISSIONS
+
+As always, the entire directory needs to be recursively readable by the web server.  Additionally,
+the smarty directory needs to be recursively writable by the web server too.  This is where smarty 
+will keep its compiled templates and caches.
+
+A typical setup where the 'deploy' user owns the files and 'www-data' is the web server group,
+you will likely use these commands (or something similar) during deployment:
+
+	sudo chown -R deploy:www-data .
+	sudo chmod -R ug+r .
+	sudo chmod -R ug+w smarty
+	sudo chmod -R o-rw .
+
+APACHE CONFIGURATION
+
+The virtual host should point into the public directory, and include rewrite rules that
+map any unknown files to index.php.
+
+You can use APPLICATION_ENV to control which kind of environment you're working in, and thus which
+configurations to use.  The usual values are 'production', 'staging', and 'development'.
+
+<VirtualHost *:80>
+	DocumentRoot "/Users/cj/Sites/playground/public"
+	ServerName playground
+
+	
+	SetEnv APPLICATION_ENV production
+
+    <Directory /Users/cj/Sites/playground/public>
+		Options FollowSymLinks SymLinksIfOwnerMatch
+        DirectoryIndex index.html index.php
+        AllowOverride All
+        Order allow,deny
+        Allow from all
+
+		RewriteEngine On
+		RewriteBase /
+		RewriteCond %{REQUEST_FILENAME} !-f
+		RewriteCond %{REQUEST_FILENAME} !-d
+		RewriteRule ^(.*)$ index.php?/$1 [L]
+	</Directory>
+</VirtualHost>
+
+Don't forget to restart Apache after you've added the vhost configuration.
