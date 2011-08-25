@@ -2,14 +2,30 @@
 
 class Entry extends CI_Controller {
 
-	public function index()
-	{
+	function __construct() {
+		parent::__construct();
+		// This is needed by both our functions
+		$this->load->library('session');
+	}
+	
+	public function index() {
 		$this->load->library('template');
-		$this->load->library('fmp');
+		$this->load->library('fmp');		
 
+		if (empty($this->session->data['counter']))
+			$this->session->data['counter'] = 0;
+		$this->session->data['counter']++;
+			
 		$this->hello = "Hello, World!";
 		$this->title = "Awesomeness, defined.";
-
+		$this->counter = $this->session->data['counter'];
+		
 		$this->template->display('entry.tpl');
+	}
+	
+	public function reset() {
+		$this->load->helper('url');
+		unset($this->session->data['counter']);
+		redirect('/');
 	}
 }

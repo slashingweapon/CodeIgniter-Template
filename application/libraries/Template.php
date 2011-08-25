@@ -9,16 +9,15 @@ require_once "Smarty/Smarty.class.php";
  *
  *	This file (Template.php) goes into your application/libraries directory.  Just drop it in.
  *
- *	Create an application/templates directory, where your templates will reside.
+ *	The following directory structure should have been created for you, when you obtained this
+ *	project.  If not, create it now.
  *
- *	Create the following directory structure in your top-level folder (these locations are all
- *	configurable, but these are the defaults):
- *
- *	application/../smarty
- *		templates_c (server read/writable)
- *		cache       (server read/writable)
- *		config      (server readable)
- *
+ *	application
+ *		templates	(server readable)
+ *			config	(server readable)
+ *	tmp
+ *		compiled_templates (server read/writable)
+ *		cached_templates   (server read/writable)
  *	
  *	You will need to install Smarty of course, preferably somewhere in PHP's include path.  On 
  *	MacOS X, I just drop it into /usr/lib/php/Smarty.
@@ -55,9 +54,9 @@ require_once "Smarty/Smarty.class.php";
  *	Sample config/template.php file:
  *
  *	$config['template_dir'] = APPPATH . 'templates/';
- *	$config['compile_dir']  = APPPATH . '../smarty/templates_c';
- *	$config['cache_dir']    = APPPATH . '../smarty/cache';
- *	$config['config_dir']   = APPPATH . '../smarty/config';
+ *	$config['config_dir']   = APPPATH . 'templates/config';
+ *	$config['compile_dir']  = APPPATH . '../tmp/compiled_templates';
+ *	$config['cache_dir']    = APPPATH . '../tmp/cached_templates';
  *
  *	You can even create a config/<environment>/template.php file for development, staging, etc..
  */
@@ -92,9 +91,9 @@ class Template extends Smarty {
     private static function getDefaultConfig() {
     	return array (
 			'template_dir'	=> APPPATH . 'templates/',
-			'compile_dir'	=> APPPATH . '../smarty/templates_c',
-			'cache_dir'		=> APPPATH . '../smarty/cache',
-			'config_dir'	=> APPPATH . '../smarty/config',
+			'config_dir'	=> APPPATH . 'templates/config',
+			'compile_dir'	=> APPPATH . '../tmp/compiled_templates',
+			'cache_dir'		=> APPPATH . '../tmp/cached_templates',
     	);
     }
 }

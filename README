@@ -9,6 +9,9 @@ application.  See the headerdoc in that file for more information.
 * application/library/Fmp.php integrates the FileMaker database libraries with your project.  See
 the headerdoc in that file for more information.
 
+* application/library/MY_Session.php overrides the default CI session handling and replaces it with
+standard PHP sessions, nicely wrapped up in CI goodness.  See the headerdoc for details.
+
 * public/index.php has been modified to support an ENVIRONMENT constant defined by the server.
 
 * public/index.php includes FileMaker.php
@@ -25,15 +28,15 @@ FileMaker PHP libraries need to be in your PHP include path.
 FILE PERMISSIONS
 
 As always, the entire directory needs to be recursively readable by the web server.  Additionally,
-the smarty directory needs to be recursively writable by the web server too.  This is where smarty 
-will keep its compiled templates and caches.
+the tmp directory needs to be recursively writable by the web server too.  This is where smarty 
+will keep its compiled templates and caches, and where session data files will be stored.
 
 A typical setup where the 'deploy' user owns the files and 'www-data' is the web server group,
 you will likely use these commands (or something similar) during deployment:
 
 	sudo chown -R deploy:www-data .
 	sudo chmod -R ug+r .
-	sudo chmod -R ug+w smarty
+	sudo chmod -R ug+w tmp
 	sudo chmod -R o-rw .
 
 APACHE CONFIGURATION
@@ -47,17 +50,17 @@ configurations to use.  The usual values are 'production', 'staging', and 'devel
 <VirtualHost *:80>
 	DocumentRoot "/Users/cj/Sites/playground/public"
 	ServerName playground
-
+	
 	
 	SetEnv APPLICATION_ENV production
-
-    <Directory /Users/cj/Sites/playground/public>
+	
+	<Directory /Users/cj/Sites/playground/public>
 		Options FollowSymLinks SymLinksIfOwnerMatch
-        DirectoryIndex index.html index.php
-        AllowOverride All
-        Order allow,deny
-        Allow from all
-
+		DirectoryIndex index.html index.php
+		AllowOverride All
+		Order allow,deny
+		Allow from all
+		
 		RewriteEngine On
 		RewriteBase /
 		RewriteCond %{REQUEST_FILENAME} !-f
