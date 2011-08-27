@@ -37,6 +37,9 @@ require_once "Smarty/Smarty.class.php";
  *	in your controller.  But you can assign as much other stuff as you like, display or fetch 
  *	templates, and generally go to town with your Smarty Badness.
  *
+ *	The $url and $uri variables are also conveniently provided.  They are the current request
+ *	URL and URI, respectively.
+ *
  *	CONFIGURATION
  *
  *	Configuration is via an associative array, which has three possible sources.  In order of
@@ -86,6 +89,8 @@ class Template extends Smarty {
 			date_default_timezone_set($tz);
 		
 		$this->assign('ci', $ci);
+		$this->assign('uri', $ci->uri->uri_string());
+		$this->assign('url', $ci->config->site_url($ci->uri->uri_string()));
     }
     
     private static function getDefaultConfig() {
