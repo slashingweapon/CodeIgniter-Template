@@ -70,7 +70,6 @@ class Template extends Smarty {
     {
         parent::__construct();
         
-        echo "<pre>".print_r($args,true)."</pre>";
         // make sure $args is an array
         if (!is_array($args))
         	$args = array();
