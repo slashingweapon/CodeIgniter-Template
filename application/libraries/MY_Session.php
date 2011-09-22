@@ -31,16 +31,21 @@ class MY_Session {
     	
     	if (isset($args['name']))
     		session_name($args['name']);
+    	
+    	if (isset($args['lifetime']))
+    		ini_set("session.gc_maxlifetime", $args['lifetime']);
     		
-    	session_start();
-    	$this->data =& $_SESSION;
+		session_start();
+		$this->data =& $_SESSION;
     	
     	// CI normally puts these things into the session, so existing code might be expecting it.
     	// TODO: validate ip_address and user_agent for re-used sessions, and throw an exception if
     	// they don't match.
     	$this->data['session_id'] = session_id();
-    	$this->data['ip_address'] = $_SERVER['REMOTE_ADDR'];
-    	$this->data['user_agent'] = substr($_SERVER['HTTP_USER_AGENT'], 0, 120);
+    	if (isset($_SERVER['REMOTE_ADDR']))
+	    	$this->data['ip_address'] = $_SERVER['REMOTE_ADDR'];
+	    if (isset($_SERVER['HTTP_USER_AGENT']))
+	    	$this->data['user_agent'] = substr($_SERVER['HTTP_USER_AGENT'], 0, 120);
     	$this->data['last_activity'] = time();
     }
     
