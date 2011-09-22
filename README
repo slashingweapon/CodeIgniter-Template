@@ -33,13 +33,14 @@ As always, the entire directory needs to be recursively readable by the web serv
 the tmp directory needs to be recursively writable by the web server too.  This is where smarty 
 will keep its compiled templates and caches, and where session data files will be stored.
 
-A typical setup where the 'deploy' user owns the files and 'www-data' is the web server group,
-you will likely use these commands (or something similar) during deployment:
+I have added a convenient command-line-tool controller that will let you set the file permissions
+properly.  You will need sudo access, of course.
 
-	sudo chown -R deploy:www-data .
-	sudo chmod -R ug+r .
-	sudo chmod -R ug+w tmp
-	sudo chmod -R o-rw .
+From the public directory, enter the following command.  'owner' should be the username or id of the
+owner of the files, and 'webgroup' should be the group ID that the web server runs as (_www on 
+MacOS X, www-data on many linux systems)
+
+	sudo php index.php tool setFilePermissions owner webgroup
 
 APACHE CONFIGURATION
 
