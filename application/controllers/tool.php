@@ -67,7 +67,7 @@ class Tool extends CI_Controller {
 		$topdir = realpath(APPPATH . '..');
 
 		system("chown -R $user:$group $topdir");
-		system("chmod u=rwx,g=rw,o= $topdir");
+		system("chmod u=rwx,g=rx,o= $topdir");
 		
 		// readable directories need to be rwx by user, and rx by group
 		// readable files need to be rw by user, and r by group

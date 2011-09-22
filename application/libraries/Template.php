@@ -77,6 +77,13 @@ class Template extends Smarty {
         // take our defaults, and replace them with whatever was passed in
         $config = array_merge(self::getDefaultConfig(), $args);
         
+        // plugin directory is handled a little differently than the other configs, so take care
+        // of it first and then unset it.
+        if (isset($config['plugins_dir'])) {
+        	$this->plugins_dir = array_merge($this->plugins_dir, $config['plugins_dir']);
+        	unset($config['plugins_dir']);
+        }
+        
 		foreach ($config as $name => $value) {
 			$this->{$name} = $value;
 		}
@@ -96,6 +103,7 @@ class Template extends Smarty {
     	return array (
 			'template_dir'	=> APPPATH . 'templates/',
 			'config_dir'	=> APPPATH . 'templates/config',
+			'plugins_dir'	=> array(APPPATH . 'templates/plugins'),
 			'compile_dir'	=> APPPATH . '../tmp/compiled_templates',
 			'cache_dir'		=> APPPATH . '../tmp/cached_templates',
     	);
