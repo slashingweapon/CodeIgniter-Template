@@ -55,7 +55,7 @@ class Tool extends CI_Controller {
 	 *	
 	 */
 	public function setFilePermissions($user, $group) {
-		$readDirs = array( 'application', 'system', 'public' );
+		$readDirs = array( 'application', 'system', 'public', 'support' );
 		$writeDirs = array( 'tmp' );
 		
 		if (!$this->input->is_cli_request())
@@ -82,6 +82,14 @@ class Tool extends CI_Controller {
 			system("find $topdir/$oneDir -type d -exec chmod u=rwx,g=rwx,o= {} \;");
 			system("find $topdir/$oneDir -type f -exec chmod u=rw,g=rw,o= {} \;");
 		}
+	}
+	
+	/**
+	 *	Print the PHP info.  You probably want to just remove this entire function from production
+	 *	systems.  But it is just too useful in early development not to have this lying around.
+	 */
+	public function info() {
+		phpinfo();
 	}
 	
 }

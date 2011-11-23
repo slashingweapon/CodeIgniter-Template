@@ -21,6 +21,19 @@
  defined('ENVIRONMENT')
  	|| (getenv('APPLICATION_ENV') && define('ENVIRONMENT', getenv('APPLICATION_ENV')))
  	|| define('ENVIRONMENT', 'production');
+
+/*
+ *---------------------------------------------------------------
+ * SUPPORT FOLDER NAME
+ *---------------------------------------------------------------
+ *
+ * This is something I added to provide a place where you can put
+ * third-party support libraries (eg: Smarty) if you don't have 
+ * convenient access to your PHP global include dirs.
+ */
+	$support_folder = realpath('../support');
+
+set_include_path($support_folder . PATH_SEPARATOR . get_include_path());
  	
 /*
  *---------------------------------------------------------------

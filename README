@@ -3,6 +3,10 @@ README
 This is a CodeIgniter project template which I use as a starting point for my contracting
 practice.  It is a standard CI project, with a few useful additions.
 
+* The support folder is added to your include path.  This is handy for situations where you don't
+have access to your server's global PHP include dirs, and you want to use some third-party 
+libraries.  Put them here.
+
 * application/library/Smarty.php gives you a trivially simple way to integrate Smarty into your
 application.  See the headerdoc in that file for more information.
 
