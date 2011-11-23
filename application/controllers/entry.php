@@ -15,10 +15,10 @@ class Entry extends CI_Controller {
 		if (empty($this->session->data['counter']))
 			$this->session->data['counter'] = 0;
 		$this->session->data['counter']++;
-			
-		$this->hello = "Hello, World!";
-		$this->title = "Awesomeness, defined.";
-		$this->counter = $this->session->data['counter'];
+
+		$this->template->assign('hello', "Hello, World!");
+		$this->template->assign('title', "Awesomeness, defined.");
+		$this->template->assign('counter', $this->session->data['counter']);
 		
 		$this->template->display('entry.tpl');
 	}

@@ -60,11 +60,20 @@ require_once "Smarty/Smarty.class.php";
  *	$config['config_dir']   = APPPATH . 'templates/config';
  *	$config['compile_dir']  = APPPATH . '../tmp/compiled_templates';
  *	$config['cache_dir']    = APPPATH . '../tmp/cached_templates';
+ *	$config['debugging']    = true; 		// turn on debugging
+ *	$config['debug_tpl']    = 'debug.tpl';	// set debug template (included)
  *
  *	You can even create a config/<environment>/template.php file for development, staging, etc..
+ *
+ *	A debug template is included in this framework, which is a cooperation of the following files:
+ *		templates/debug.tpl
+ *		helpers/template_helper.php
+ *
+ *	Set the debugging and debug_tpl parameters as shown above, and have Krumo installed and working.
+ *	If you do those thing, then all of your template-bound variables will be shown in the HTML 
+ *	This is hugely useful during development.
  */
 class Template extends Smarty {
-
 		
     public function __construct($args=null)
     {
@@ -94,7 +103,9 @@ class Template extends Smarty {
 		if ($tz !== false)
 			date_default_timezone_set($tz);
 		
-		$this->assign('ci', $ci);
+		$ci->load->helper('url');
+		
+		$this->assign('home', site_url());
 		$this->assign('uri', $ci->uri->uri_string());
 		$this->assign('url', $ci->config->site_url($ci->uri->uri_string()));
     }
