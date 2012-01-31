@@ -167,7 +167,7 @@ if (defined('ENVIRONMENT'))
  * SEGFAULT.  But everything seems fine if we require it earlier.
  *
  */
-require_once( "FileMaker.php" );
+// require_once( "FileMaker.php" );
 
 /*
  * --------------------------------------------------------------------
