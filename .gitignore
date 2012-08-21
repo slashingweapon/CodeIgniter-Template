@@ -1,0 +1,4 @@
+.DS_Store
+support/Smarty/*
+system/*
+tmp/*

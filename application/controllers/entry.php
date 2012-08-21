@@ -10,7 +10,7 @@ class Entry extends CI_Controller {
 	
 	public function index() {
 		$this->load->library('template');
-		$this->load->library('fmp');		
+//		$this->load->library('fmp');		
 
 		if (empty($this->session->data['counter']))
 			$this->session->data['counter'] = 0;
